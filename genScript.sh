@@ -18,6 +18,9 @@ editor=subl
 # first argument has to the scriptname
 [ -z "$1" ] && exit 1
 
+# file allready exists
+[ -f $script_dir/$1 ] && exit 1
+
 # create file
 touch $script_dir/$1
 
