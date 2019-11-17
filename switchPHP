@@ -1,0 +1,40 @@
+#!/bin/sh
+
+CURRENT=`php -v | awk '{print $2; exit}' | cut -c 1-3`
+
+enablePHP () {
+   ENA_VERSION="$1"
+   sudo a2enmod php$ENA_VERSION
+   sudo update-alternatives --set php /usr/bin/php$ENA_VERSION
+   sudo service apache2 restart
+}
+
+disablePHP () {
+   DIS_VERSION="$1"
+   sudo a2dismod php$DIS_VERSION
+}
+
+if [ "$1" = "" ]
+then
+   echo "Enter a PHP version as argument.";
+  exit;
+fi
+
+if [ "$CURRENT" = "$1" ]
+then
+   echo "PHP version $i is already the installed version."
+   exit
+fi
+
+if [ "$CURRENT" = "" ]
+then
+   echo "No actual PHP version found. Installing PHP version $1."
+   installPHP $1
+   exit
+fi
+
+echo "Disable PHP version $CURRENT."
+disablePHP $CURRENT
+
+echo "Enable PHP version $1."
+enablePHP $1
