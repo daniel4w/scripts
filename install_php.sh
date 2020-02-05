@@ -31,6 +31,8 @@ do
 		php"$version"-mbstring \
 		php"$version"-curl \
 		php"$version"-bz2 \
+		php"$version"-soap \
+		php"$version"-xmlrpc \
 		> /dev/null 2>&1
 	
 	echo "Make webdir /var/www/php$short ..."
